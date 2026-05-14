@@ -1,3 +1,0 @@
-# Spring Boot 2.x compatibility – for Spring Boot 3.x the AutoConfiguration.imports file is used.
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.numaansystems.solace.commons.autoconfigure.SolaceCommonsAutoConfiguration
