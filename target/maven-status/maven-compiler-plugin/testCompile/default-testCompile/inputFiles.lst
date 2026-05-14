@@ -1,0 +1,3 @@
+/home/runner/work/slocalce-commons/slocalce-commons/src/test/java/com/numaansystems/solace/commons/consumer/TriggerThenConsumeServiceTest.java
+/home/runner/work/slocalce-commons/slocalce-commons/src/test/java/com/numaansystems/solace/commons/config/SolaceCommonsPropertiesTest.java
+/home/runner/work/slocalce-commons/slocalce-commons/src/test/java/com/numaansystems/solace/commons/pipeline/DefaultMessageProcessingPipelineTest.java
