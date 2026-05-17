@@ -1,0 +1,61 @@
+{
+  "groups": [
+    {
+      "name": "solace.commons",
+      "type": "com.numaansystems.solace.commons.autoconfigure.SolaceCommonsProperties",
+      "sourceType": "com.numaansystems.solace.commons.autoconfigure.SolaceCommonsProperties"
+    },
+    {
+      "name": "solace.commons.sinks",
+      "type": "com.numaansystems.solace.commons.autoconfigure.SolaceCommonsProperties$SinkConfig",
+      "sourceType": "com.numaansystems.solace.commons.autoconfigure.SolaceCommonsProperties",
+      "sourceMethod": "getSinks()"
+    },
+    {
+      "name": "solace.commons.sinks.database",
+      "type": "com.numaansystems.solace.commons.autoconfigure.SolaceCommonsProperties$DatabaseConfig",
+      "sourceType": "com.numaansystems.solace.commons.autoconfigure.SolaceCommonsProperties$SinkConfig",
+      "sourceMethod": "getDatabase()"
+    },
+    {
+      "name": "solace.commons.sinks.publish",
+      "type": "com.numaansystems.solace.commons.autoconfigure.SolaceCommonsProperties$PublishConfig",
+      "sourceType": "com.numaansystems.solace.commons.autoconfigure.SolaceCommonsProperties$SinkConfig",
+      "sourceMethod": "getPublish()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "solace.commons.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Global enable\/disable flag for the library.",
+      "sourceType": "com.numaansystems.solace.commons.autoconfigure.SolaceCommonsProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "solace.commons.sinks.database.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.numaansystems.solace.commons.autoconfigure.SolaceCommonsProperties$DatabaseConfig",
+      "defaultValue": false
+    },
+    {
+      "name": "solace.commons.sinks.publish.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.numaansystems.solace.commons.autoconfigure.SolaceCommonsProperties$PublishConfig",
+      "defaultValue": false
+    },
+    {
+      "name": "solace.commons.sinks.publish.target",
+      "type": "java.lang.String",
+      "description": "Spring Cloud Stream output binding name (e.g. {@code myOutput-out-0}).",
+      "sourceType": "com.numaansystems.solace.commons.autoconfigure.SolaceCommonsProperties$PublishConfig"
+    },
+    {
+      "name": "solace.commons.topics",
+      "type": "java.util.Map<java.lang.String,com.numaansystems.solace.commons.autoconfigure.SolaceCommonsProperties$TopicConfig>",
+      "description": "Per-topic pipeline configuration. Map key is the Solace topic name.",
+      "sourceType": "com.numaansystems.solace.commons.autoconfigure.SolaceCommonsProperties"
+    }
+  ],
+  "hints": []
+}

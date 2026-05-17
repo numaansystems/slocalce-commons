@@ -1,0 +1,3 @@
+com/numaansystems/solace/commons/enricher/EnricherChainTest.class
+com/numaansystems/solace/commons/parser/ParserSelectionTest.class
+com/numaansystems/solace/commons/sink/SinkDispatchTest.class

@@ -1,0 +1,84 @@
+# ============================================================
+# slocalce-commons — Sample application.yml
+# ============================================================
+
+solace:
+  # Solace connection (provided by host application)
+  java:
+    host: "tcp://localhost:55555"
+    msgVpn: default
+    clientUsername: admin
+    clientPassword: admin
+
+  commons:
+    enabled: true
+
+    # ──────────────────────────────────────────────────────
+    # Per-topic pipeline configuration
+    # ──────────────────────────────────────────────────────
+    topics:
+
+      # Topic: orders/created
+      "orders/created":
+        # Bean name of the MessageParser<OrderEvent> implementation
+        parser: orderMessageParser
+        # Ordered list of MessageEnricher bean names
+        enrichers:
+          - customerEnricher
+          - inventoryEnricher
+        # Per-topic sink overrides
+        sink-publish-enabled: true
+        sink-publish-target: processedOrders-out-0   # SCS output binding
+        sink-database-enabled: true
+
+      # Topic: payments/processed
+      "payments/processed":
+        parser: paymentMessageParser
+        enrichers:
+          - fraudEnricher
+        sink-publish-enabled: true
+        sink-publish-target: processedPayments-out-0
+        sink-database-enabled: false
+
+    # ──────────────────────────────────────────────────────
+    # Global sink defaults (apply when per-topic overrides absent)
+    # ──────────────────────────────────────────────────────
+    sinks:
+      publish:
+        enabled: false          # Set true to publish all topics by default
+        target:                 # Default output binding name (optional)
+      database:
+        enabled: false          # Set true to persist all topics by default
+
+# ──────────────────────────────────────────────────────────
+# Spring Cloud Stream
+# ──────────────────────────────────────────────────────────
+spring:
+  cloud:
+    stream:
+      function:
+        # Register the auto-configured consumer function.
+        # Combine with your own functions: "solaceMessageConsumer;myOtherFunction"
+        definition: solaceMessageConsumer
+
+      bindings:
+        # ── Input ──────────────────────────────────────────
+        solaceMessageConsumer-in-0:
+          destination: "orders/created"     # comma-separated for multiple topics
+          group: my-service-group           # durable queue group
+
+        # ── Outputs (one per downstream target) ────────────
+        processedOrders-out-0:
+          destination: "processed/orders"
+
+        processedPayments-out-0:
+          destination: "processed/payments"
+
+      solace:
+        bindings:
+          solaceMessageConsumer-in-0:
+            consumer:
+              # Subscribe to additional topics on the same queue
+              queueAdditionalSubscriptions:
+                - "orders/created"
+                - "payments/processed"
